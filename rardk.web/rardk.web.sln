@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "rardk.web.UI", "rardk.web.UI\rardk.web.UI.esproj", "{B597E197-F223-4233-A669-2827531028E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rardk.web.API", "rardk.web.API\rardk.web.API.csproj", "{B7C9CFE9-8E11-4072-AC89-728D22C5523E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B597E197-F223-4233-A669-2827531028E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B597E197-F223-4233-A669-2827531028E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B597E197-F223-4233-A669-2827531028E0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B597E197-F223-4233-A669-2827531028E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B597E197-F223-4233-A669-2827531028E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B597E197-F223-4233-A669-2827531028E0}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B7C9CFE9-8E11-4072-AC89-728D22C5523E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7C9CFE9-8E11-4072-AC89-728D22C5523E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7C9CFE9-8E11-4072-AC89-728D22C5523E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7C9CFE9-8E11-4072-AC89-728D22C5523E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FF880FDB-8C3A-4909-A707-EDF174E1D7EE}
+	EndGlobalSection
+EndGlobal
