@@ -1,3 +1,5 @@
+using rardk.web.BusinessLayer;
+using rardk.web.ServiceLayer;
 
 namespace rardk.web.API
 {
@@ -8,11 +10,14 @@ namespace rardk.web.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddRouting(options => options.LowercaseUrls = true);
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<ILetterboxdBusinessLayer, LetterboxdBusinessLayer>();
+            builder.Services.AddScoped<ILetterboxdServiceLayer, LetterboxdServiceLayer>();
 
             var app = builder.Build();
 

@@ -13,6 +13,9 @@ export class AppComponent {
     http.get<WeatherForecast[]>('/weatherforecast').subscribe(result => {
       this.forecasts = result;
     }, error => console.error(error));
+    http.get('/api/now').subscribe(result => {
+      console.log("done", result);
+    }, error => console.error(error));
   }
 
   title = 'rardk.web.UI';
