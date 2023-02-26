@@ -7,9 +7,8 @@ namespace rardk.web.ServiceLayer
     {
         public void GetLetterboxdFeed()
         {
-            var reader = XmlReader.Create("sample");
+            var reader = XmlReader.Create("https://letterboxd.com/rardk/rss/");
             var feed = SyndicationFeed.Load(reader);
-
         }
     }
 
