@@ -17,7 +17,10 @@ namespace rardk.web.API
                 options.AddPolicy(name: rardkAllowOrigins,
                     policy =>
                     {
-                        policy.WithOrigins("http://localhost:4200", "http://localhost:52340", "https://rardk.com");
+                        policy.WithOrigins("http://localhost:4200",
+                            "http://localhost:52340",
+                            "https://rardk.com",
+                            "https://www.rardk.com");
                     });
             });
 
