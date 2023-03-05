@@ -1,4 +1,5 @@
-﻿using rardk.web.ServiceLayer;
+﻿using rardk.web.Models;
+using rardk.web.ServiceLayer;
 
 namespace rardk.web.BusinessLayer
 {
@@ -11,14 +12,9 @@ namespace rardk.web.BusinessLayer
             _letterboxdServiceLayer = letterboxdServiceLayer;
         }
 
-        public void GetLetterboxdFeed()
+        public IEnumerable<LetterboxdItem> GetLetterboxdFeed(int limit = 0)
         {
-            _letterboxdServiceLayer.GetLetterboxdFeed();
+            return _letterboxdServiceLayer.GetLetterboxdFeed(limit);
         }
-    }
-
-    public interface ILetterboxdBusinessLayer
-    {
-        void GetLetterboxdFeed();
     }
 }

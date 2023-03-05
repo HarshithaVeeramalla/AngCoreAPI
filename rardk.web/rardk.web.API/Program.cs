@@ -1,4 +1,5 @@
 using rardk.web.BusinessLayer;
+using rardk.web.Models;
 using rardk.web.ServiceLayer;
 
 namespace rardk.web.API
@@ -9,6 +10,17 @@ namespace rardk.web.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            var rardkAllowOrigins = "_rardkAllowOrigins";
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: rardkAllowOrigins,
+                    policy =>
+                    {
+                        policy.WithOrigins("http://localhost:4200", "http://localhost:52340", "https://rardk.com");
+                    });
+            });
+
             // Add services to the container.
             builder.Services.AddRouting(options => options.LowercaseUrls = true);
             builder.Services.AddControllers();
@@ -16,6 +28,16 @@ namespace rardk.web.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            var letterboxdSettings = new LetterboxdSettings
+            {
+                LetterboxdProfileUrl = configuration["Letterboxd:ProfileUrl"]
+            };
+
+            builder.Services.AddSingleton(letterboxdSettings);
             builder.Services.AddScoped<ILetterboxdBusinessLayer, LetterboxdBusinessLayer>();
             builder.Services.AddScoped<ILetterboxdServiceLayer, LetterboxdServiceLayer>();
 
@@ -32,6 +54,8 @@ namespace rardk.web.API
                 app.UseDefaultFiles();
                 app.UseStaticFiles();
             }
+
+            app.UseCors(rardkAllowOrigins); //this must be between UseRouting and UseEndpoints if those exist (i.e. with endpoint routing)
 
             app.UseHttpsRedirection();
 

@@ -7,9 +7,11 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "rardk.web.UI", "rardk.web.U
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rardk.web.API", "rardk.web.API\rardk.web.API.csproj", "{B7C9CFE9-8E11-4072-AC89-728D22C5523E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rardk.web.BusinessLayer", "rardk.web.BusinessLayer\rardk.web.BusinessLayer.csproj", "{B80F0C36-B327-4F14-A8B1-DC687F2DEF12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rardk.web.BusinessLayer", "rardk.web.BusinessLayer\rardk.web.BusinessLayer.csproj", "{B80F0C36-B327-4F14-A8B1-DC687F2DEF12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rardk.web.ServiceLayer", "rardk.web.ServiceLayer\rardk.web.ServiceLayer.csproj", "{1E8A4140-A4A3-42AE-AA9B-C0CC68753880}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rardk.web.ServiceLayer", "rardk.web.ServiceLayer\rardk.web.ServiceLayer.csproj", "{1E8A4140-A4A3-42AE-AA9B-C0CC68753880}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rardk.web.Models", "rardk.web.Models\rardk.web.Models.csproj", "{15E2CC99-32D6-49D4-B264-85F913F74377}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{1E8A4140-A4A3-42AE-AA9B-C0CC68753880}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E8A4140-A4A3-42AE-AA9B-C0CC68753880}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E8A4140-A4A3-42AE-AA9B-C0CC68753880}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15E2CC99-32D6-49D4-B264-85F913F74377}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15E2CC99-32D6-49D4-B264-85F913F74377}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15E2CC99-32D6-49D4-B264-85F913F74377}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15E2CC99-32D6-49D4-B264-85F913F74377}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,4 +10,8 @@
     <PackageReference Include="System.ServiceModel.Syndication" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\rardk.web.Models\rardk.web.Models.csproj" />
+  </ItemGroup>
+
 </Project>

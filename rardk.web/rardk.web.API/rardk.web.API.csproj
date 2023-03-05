@@ -15,6 +15,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\rardk.web.BusinessLayer\rardk.web.BusinessLayer.csproj" />
+		<ProjectReference Include="..\rardk.web.Models\rardk.web.Models.csproj" />
 		<ProjectReference Include="..\rardk.web.UI\rardk.web.UI.esproj">
 			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
 		</ProjectReference>
