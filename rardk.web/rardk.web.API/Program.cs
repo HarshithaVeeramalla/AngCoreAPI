@@ -35,14 +35,17 @@ namespace rardk.web.API
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            var letterboxdSettings = new LetterboxdSettings
-            {
-                LetterboxdProfileUrl = configuration["Letterboxd:ProfileUrl"]
-            };
+            var letterboxdSettings = new LetterboxdSettings(configuration["Letterboxd:ProfileUrl"]);
+            var backloggdSettings = new BackloggdSettings(configuration["Backloggd:ProfileUrl"]);
 
             builder.Services.AddSingleton(letterboxdSettings);
+            builder.Services.AddSingleton(backloggdSettings);
+
             builder.Services.AddScoped<ILetterboxdBusinessLayer, LetterboxdBusinessLayer>();
             builder.Services.AddScoped<ILetterboxdServiceLayer, LetterboxdServiceLayer>();
+
+            builder.Services.AddScoped<IBackloggdBusinessLayer, BackloggdBusinessLayer>();
+            builder.Services.AddScoped<IBackloggdServiceLayer, BackloggdServiceLayer>();
 
             var app = builder.Build();
 

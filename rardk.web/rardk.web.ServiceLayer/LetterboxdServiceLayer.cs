@@ -21,9 +21,9 @@ namespace rardk.web.ServiceLayer
             var feedItems = limit > 0 ? feed.Items.Take(limit) : feed.Items;
             var items = feedItems.Select(i =>
             {
-                var isRewatch = ParseYesOrNo(ReadElementExtension(i, "rewatch"));
-                var watchedDate = ReadElementExtension(i, "watchedDate");
-                var memberRating = ReadElementExtension(i, "memberRating");
+                var isRewatch = i.ReadElementExtension("rewatch", LetterboxdExtensionNamespace)?.ParseYesOrNo();
+                var watchedDate = i.ReadElementExtension("watchedDate", LetterboxdExtensionNamespace);
+                var memberRating = i.ReadElementExtension("memberRating", LetterboxdExtensionNamespace);
                 var link = i.Links.FirstOrDefault()?.Uri.AbsoluteUri;
 
                 var imageFromDescription = GetImageFromDescription(i.Summary.Text);
@@ -33,26 +33,14 @@ namespace rardk.web.ServiceLayer
                     Title = i.Title.Text,
                     Summary = i.Summary.Text,
                     Url = link,
-                    IsRewatch = isRewatch,
+                    IsRewatch = isRewatch ?? false,
                     WatchedDate = watchedDate,
-                    MemberRating = memberRating,
+                    Rating = memberRating,
                     ImageUrl = imageFromDescription,
 
                 };
             });
             return items;
-        }
-
-        private static bool ParseYesOrNo(string? text)
-        {
-            return string.Equals(text, "Yes", StringComparison.OrdinalIgnoreCase);
-        }
-
-        private static string? ReadElementExtension(SyndicationItem item, string extensionName)
-        {
-            return item.ElementExtensions
-                .ReadElementExtensions<string>(extensionName, LetterboxdExtensionNamespace)
-                .FirstOrDefault();
         }
 
         private static string? GetImageFromDescription(string summaryText)
