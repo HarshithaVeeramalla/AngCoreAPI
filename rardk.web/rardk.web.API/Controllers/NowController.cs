@@ -9,11 +9,15 @@ public class NowController : ControllerBase
 {
     private readonly ILetterboxdBusinessLayer _letterboxdBusinessLayer;
     private readonly IBackloggdBusinessLayer _backloggdBusinessLayer;
+    private readonly ILastfmBusinessLayer _lastfmBusinessLayer;
 
-    public NowController(ILetterboxdBusinessLayer letterboxdBusinessLayer, IBackloggdBusinessLayer backloggdBusinessLayer)
+    public NowController(ILetterboxdBusinessLayer letterboxdBusinessLayer,
+        IBackloggdBusinessLayer backloggdBusinessLayer,
+        ILastfmBusinessLayer lastfmBusinessLayer)
     {
         _letterboxdBusinessLayer = letterboxdBusinessLayer;
         _backloggdBusinessLayer = backloggdBusinessLayer;
+        _lastfmBusinessLayer = lastfmBusinessLayer;
     }
 
     [HttpGet("letterboxd", Name = "letterboxd")]
@@ -28,5 +32,33 @@ public class NowController : ControllerBase
     {
         var backloggdFeed = _backloggdBusinessLayer.GetBackloggdFeed(limit);
         return Ok(backloggdFeed);
+    }
+
+    [HttpGet("lastfm/topalbums", Name = "lastfm/topalbums")]
+    public async Task<ActionResult> GetLastfmTopAlbums(int limit = 0)
+    {
+        var topAlbums = await _lastfmBusinessLayer.GetTopAlbums(limit);
+        return Ok(topAlbums);
+    }
+
+    [HttpGet("lastfm/topartists", Name = "lastfm/topartists")]
+    public async Task<ActionResult> GetLastfmTopArtists(int limit = 0)
+    {
+        var topArtists = await _lastfmBusinessLayer.GetTopArtists(limit);
+        return Ok(topArtists);
+    }
+
+    [HttpGet("lastfm/weeklyalbumchart", Name = "lastfm/weeklyalbumchart")]
+    public async Task<ActionResult> GetLastfmWeeklyAlbumChart(int limit = 0)
+    {
+        var weeklyAlbumChart = await _lastfmBusinessLayer.GetWeeklyAlbumChart(limit);
+        return Ok(weeklyAlbumChart);
+    }
+
+    [HttpGet("lastfm/weeklyartistchart", Name = "lastfm/weeklyartistchart")]
+    public async Task<ActionResult> GetLastfmWeeklyArtistChart(int limit = 0)
+    {
+        var weeklyArtistChart = await _lastfmBusinessLayer.GetWeeklyArtistChart(limit);
+        return Ok(weeklyArtistChart);
     }
 }

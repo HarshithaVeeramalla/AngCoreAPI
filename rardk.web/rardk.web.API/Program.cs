@@ -1,6 +1,7 @@
 using rardk.web.BusinessLayer;
 using rardk.web.Models;
 using rardk.web.ServiceLayer;
+using System.Reflection;
 
 namespace rardk.web.API
 {
@@ -33,19 +34,34 @@ namespace rardk.web.API
 
             IConfiguration configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
+                .AddUserSecrets(Assembly.GetEntryAssembly()!, true)
+                .AddEnvironmentVariables()
                 .Build();
 
-            var letterboxdSettings = new LetterboxdSettings(configuration["Letterboxd:ProfileUrl"]);
-            var backloggdSettings = new BackloggdSettings(configuration["Backloggd:ProfileUrl"]);
+            var letterboxdSettings = new LetterboxdSettings(configuration["Letterboxd:ProfileUrl"]!);
+            var backloggdSettings = new BackloggdSettings(configuration["Backloggd:ProfileUrl"]!);
+            var lastfmSettings = new LastfmSettings(configuration["LastFM:BaseUrl"]!, configuration["AppSettings:LASTFM_API_KEY"]!)
+            {
+                User = configuration["LastFM:User"]!
+            };
+
+            builder.Services.AddHttpClient(HttpClients.Lastfm.ToString(), config =>
+            {
+                config.BaseAddress = new Uri(lastfmSettings.BaseUrl);
+            });
 
             builder.Services.AddSingleton(letterboxdSettings);
             builder.Services.AddSingleton(backloggdSettings);
+            builder.Services.AddSingleton(lastfmSettings);
 
             builder.Services.AddScoped<ILetterboxdBusinessLayer, LetterboxdBusinessLayer>();
             builder.Services.AddScoped<ILetterboxdServiceLayer, LetterboxdServiceLayer>();
 
             builder.Services.AddScoped<IBackloggdBusinessLayer, BackloggdBusinessLayer>();
             builder.Services.AddScoped<IBackloggdServiceLayer, BackloggdServiceLayer>();
+
+            builder.Services.AddScoped<ILastfmBusinessLayer, LastfmBusinessLayer>();
+            builder.Services.AddScoped<ILastfmServiceLayer, LastfmServiceLayer>();
 
             var app = builder.Build();
 
