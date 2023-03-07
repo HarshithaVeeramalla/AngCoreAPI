@@ -10,14 +10,17 @@ public class NowController : ControllerBase
     private readonly ILetterboxdBusinessLayer _letterboxdBusinessLayer;
     private readonly IBackloggdBusinessLayer _backloggdBusinessLayer;
     private readonly ILastfmBusinessLayer _lastfmBusinessLayer;
+    private readonly ISerializdBusinessLayer _serializdBusinessLayer;
 
     public NowController(ILetterboxdBusinessLayer letterboxdBusinessLayer,
         IBackloggdBusinessLayer backloggdBusinessLayer,
-        ILastfmBusinessLayer lastfmBusinessLayer)
+        ILastfmBusinessLayer lastfmBusinessLayer,
+        ISerializdBusinessLayer serializdBusinessLayer)
     {
         _letterboxdBusinessLayer = letterboxdBusinessLayer;
         _backloggdBusinessLayer = backloggdBusinessLayer;
         _lastfmBusinessLayer = lastfmBusinessLayer;
+        _serializdBusinessLayer = serializdBusinessLayer;
     }
 
     [HttpGet("letterboxd", Name = "letterboxd")]
@@ -60,5 +63,12 @@ public class NowController : ControllerBase
     {
         var weeklyArtistChart = await _lastfmBusinessLayer.GetWeeklyArtistChart(limit);
         return Ok(weeklyArtistChart);
+    }
+
+    [HttpGet("serializd/currentlywatching", Name = "serializd/currentlywatching")]
+    public async Task<ActionResult> GetSerializdCurrentlyWatchingShows(int limit = 0)
+    {
+        var shows = await _serializdBusinessLayer.GetCurrentlyWatchingShows(limit);
+        return Ok(shows);
     }
 }

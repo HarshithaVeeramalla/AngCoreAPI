@@ -44,15 +44,24 @@ namespace rardk.web.API
             {
                 User = configuration["LastFM:User"]!
             };
+            var serializdSettings = new SerializdSettings(configuration["Serializd:BaseUrl"]!,
+                configuration["Serializd:ShowBaseUrl"]!, configuration["Serializd:ShowImageBaseUrl"]!,
+                configuration["Serializd:User"]!);
 
             builder.Services.AddHttpClient(HttpClients.Lastfm.ToString(), config =>
             {
                 config.BaseAddress = new Uri(lastfmSettings.BaseUrl);
             });
 
+            builder.Services.AddHttpClient(HttpClients.Serializd.ToString(), config =>
+            {
+                config.BaseAddress = new Uri(serializdSettings.BaseUrl);
+            });
+
             builder.Services.AddSingleton(letterboxdSettings);
             builder.Services.AddSingleton(backloggdSettings);
             builder.Services.AddSingleton(lastfmSettings);
+            builder.Services.AddSingleton(serializdSettings);
 
             builder.Services.AddScoped<ILetterboxdBusinessLayer, LetterboxdBusinessLayer>();
             builder.Services.AddScoped<ILetterboxdServiceLayer, LetterboxdServiceLayer>();
@@ -62,6 +71,9 @@ namespace rardk.web.API
 
             builder.Services.AddScoped<ILastfmBusinessLayer, LastfmBusinessLayer>();
             builder.Services.AddScoped<ILastfmServiceLayer, LastfmServiceLayer>();
+
+            builder.Services.AddScoped<ISerializdBusinessLayer, SerializdBusinessLayer>();
+            builder.Services.AddScoped<ISerializdServiceLayer, SerializdServiceLayer>();
 
             var app = builder.Build();
 

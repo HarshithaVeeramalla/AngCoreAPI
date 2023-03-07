@@ -2,5 +2,6 @@
 
 public enum HttpClients
 {
-    Lastfm
+    Lastfm,
+    Serializd
 }
