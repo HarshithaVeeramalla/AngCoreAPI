@@ -48,20 +48,16 @@ namespace rardk.web.API
                 configuration["Serializd:ShowBaseUrl"]!, configuration["Serializd:ShowImageBaseUrl"]!,
                 configuration["Serializd:User"]!);
 
-            builder.Services.AddHttpClient(HttpClients.Lastfm.ToString(), config =>
-            {
-                config.BaseAddress = new Uri(lastfmSettings.BaseUrl);
-            });
+            var discordSettings = new DiscordSettings(configuration["DiscordSettings:ClientId"]!,
+                configuration["DiscordSettings:ClientSecret"]!, configuration["DiscordSettings:TokenAuthEndpoint"]!);
 
-            builder.Services.AddHttpClient(HttpClients.Serializd.ToString(), config =>
-            {
-                config.BaseAddress = new Uri(serializdSettings.BaseUrl);
-            });
+            builder.Services.AddHttpClients(lastfmSettings, serializdSettings, discordSettings);
 
             builder.Services.AddSingleton(letterboxdSettings);
             builder.Services.AddSingleton(backloggdSettings);
             builder.Services.AddSingleton(lastfmSettings);
             builder.Services.AddSingleton(serializdSettings);
+            builder.Services.AddSingleton(discordSettings);
 
             builder.Services.AddScoped<ILetterboxdBusinessLayer, LetterboxdBusinessLayer>();
             builder.Services.AddScoped<ILetterboxdServiceLayer, LetterboxdServiceLayer>();
@@ -74,6 +70,9 @@ namespace rardk.web.API
 
             builder.Services.AddScoped<ISerializdBusinessLayer, SerializdBusinessLayer>();
             builder.Services.AddScoped<ISerializdServiceLayer, SerializdServiceLayer>();
+
+            builder.Services.AddScoped<IDiscordBusinessLayer, DiscordBusinessLayer>();
+            builder.Services.AddScoped<IDiscordServiceLayer, DiscordServiceLayer>();
 
             var app = builder.Build();
 
@@ -95,10 +94,25 @@ namespace rardk.web.API
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.Run();
+        }
+    }
+
+    public static class ServiceCollectionExtensions
+    {
+        public static void AddHttpClients(this IServiceCollection services, LastfmSettings lastfmSettings,
+            SerializdSettings serializdSettings, DiscordSettings discordSettings)
+        {
+            services.AddHttpClient(HttpClients.Lastfm.ToString(),
+                config => { config.BaseAddress = new Uri(lastfmSettings.BaseUrl); });
+
+            services.AddHttpClient(HttpClients.Serializd.ToString(),
+                config => { config.BaseAddress = new Uri(serializdSettings.BaseUrl); });
+
+            services.AddHttpClient(HttpClients.Discord.ToString(),
+                config => { config.BaseAddress = new Uri(discordSettings.TokenAuthEndpoint); });
         }
     }
 }

@@ -3,5 +3,6 @@
 public enum HttpClients
 {
     Lastfm,
-    Serializd
+    Serializd,
+    Discord
 }
