@@ -1,0 +1,6 @@
+<a href="/home"><button>Home</button></a>
+<a href="/weather-test"><button>Weather Test</button></a>
+<button (click)="logInWithDiscord()" *ngIf="!isLoggedIn()">
+  Log in with Discord
+</button>
+<button *ngIf="isLoggedIn()" (click)="logOut()">Log Out</button>
